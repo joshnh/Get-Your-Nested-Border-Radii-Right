@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+<meta charset='utf-8'>
+<meta name='author' content='Joshua Hibbert'>
+<title>Get Your Nested Border Radii Right!</title>
+<!--[if IE]>
+  <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style>
+  header,
+  footer {
+    display: block;
+  }
+  html {
+    background-color: #ddd;
+    background-image: -webkit-linear-gradient(45deg, hsla(0,0%,0%,.015) 50%, transparent 50%);
+    background-image:    -moz-linear-gradient(45deg, hsla(0,0%,0%,.015) 50%, transparent 50%);
+    background-image:     -ms-linear-gradient(45deg, hsla(0,0%,0%,.015) 50%, transparent 50%);
+    background-image:      -o-linear-gradient(45deg, hsla(0,0%,0%,.015) 50%, transparent 50%);
+    background-image:         linear-gradient(45deg, hsla(0,0%,0%,.015) 50%, transparent 50%);
+    background-position: 50% 0;
+    background-repeat: repeat;
+    background-size: 9em 9em;
+    color: #444;
+    font: 100%/1.5 sans-serif;
+    padding: 3em 10%;
+    text-align: center;
+  }
+  h1,
+  h2{
+    font: 2em/1.5 'Fugaz One', sans-serif;
+    margin: 0 0 1em 0;
+    padding: 0;
+    text-shadow: 0 2px 0 #ddd,
+                 0 3px 0 #888;
+  }
+  h1 {
+  	font-size: 3em;
+  }
+  h2 {
+    font-size: 3em;
+    margin-bottom: 1.3em;
+    text-shadow: 0 2px 0 #f6f6f6,
+                 0 3px 0 #888;
+  }
+  #content {
+    background: #f6f6f6;
+    border: 2px solid #444;
+    margin-bottom: 3em;
+    padding: 3em;
+  }
+  form {
+  	padding-bottom: 3em;
+  }
+  form div:first-child {
+    margin-bottom: 1.5em;
+  }
+  label,
+  input,
+  p {
+    display: inline-block;
+    vertical-align: middle;
+  }
+  label {
+    cursor: pointer;
+    font-size: 1.25em;
+    text-align: right;
+    width: 35%;
+  }
+  input {
+	border: 2px solid #444;
+  	border-radius: .5em;
+    font-size: 1.25em;
+    height: 1em;
+    margin: 0 1.5%;
+    padding: 0 .1em;
+    width: 40%;
+    -webkit-appearance: none;
+  }
+  input::-webkit-slider-thumb {
+  	background: #444;
+  	border-radius: 50%/100%;
+  	height: .8em;
+  	width: 1.5em;
+  	-webkit-appearance: none;
+  }
+  p {
+    color: #888;
+    margin: 0;
+    text-align: left;
+    width: 15%;
+  }
+  #outer {
+    background: #444;
+    border: 1px solid #fff;
+    border-radius: 25px;
+    padding: 15px;
+  }
+  #inner {
+    background: #6c6;
+    border-radius: 15px;
+    font: 2em/1 'Fugaz One', sans-serif;
+    padding: 2em 1em;
+  }
+  h3 {
+    font-size: 1.25em;
+    margin-bottom: 1.5em;
+  }
+  a {
+    color: #999;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  a:hover,
+  a:focus {
+    color: #6c6;
+  }
+
+</style>
+  <link href='http://fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet'>
+</head>
+<body>
+
+  <header>
+    <h1>Get Your Nested Border Radii Right!</h1>
+  </header>
+  <div id="content">
+	  <form id='nestedBorderRadii'>
+	    <div id='borderRadiusSlider'>
+	        <label for='borderRadius'>Border Radius (z = 25px)</label>
+	        <input id='borderRadius' type='range' min='0' max='50' value='25'>
+	        <p>(0 &ndash; 50 px)</p>
+	    </div>
+	    <div id='paddingSlider'>
+	        <label for='padding'>Padding (y = 15px)</label>
+	        <input id='padding' type='range' min='0' max='50' value='15'>
+	        <p>(0 &ndash; 50 px)</p>
+	    </div>
+	  </form>
+	  <h2>x = z &ndash; y</h2>
+	  <div id='outer'>
+	    <div id='inner'>x = 10px</div>
+	  </div>
+  </div>
+  <footer>
+    <h3>Please keep in mind that this is only a guide; you may encounter situations where an adjustment is required to get the best result. It's okay to eyeball a value!</h3>
+    <a href='http://joshnh.com/2012/01/getting-inner-border-radius-just-right/'>Original article by Joshua Hibbert</a>
+  </footer>
+
+  <script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+  <script>
+    $('input').change(function() {
+        var y = $('#padding').val(),
+            z = $('#borderRadius').val(),
+            yLabel = $('#paddingSlider label'),
+            zLabel = $('#borderRadiusSlider label'),
+            inner = $('#inner'),
+            outer = $('#outer');
+        if(z-y > 0) {
+            outer.attr('style', 'border-radius: ' + z + 'px; padding: ' + y + 'px;');
+            inner.attr('style', 'border-radius: ' + (z - y) + 'px;');
+            inner.text('x = ' + (z - y) + 'px');
+        } else {
+            outer.attr('style', 'border-radius: ' + z + 'px; padding: ' + y + 'px;');
+            inner.attr('style', 'border-radius: 0px;');
+            inner.text('x = 0px');
+        };
+        zLabel.text('Border Radius (z = ' + z + 'px)');
+        yLabel.text('Padding (y = ' + y + 'px)');
+    });
+  </script>
+
+</body>
+</html>
