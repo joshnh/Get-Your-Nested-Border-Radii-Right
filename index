@@ -129,18 +129,6 @@
     color: #6cf;
     font-weight: bold !important;
   }
-  .tools-link {
-    background-color: #555;
-    display: block;
-    padding: .75em 9999em;
-    margin: -3em -9999em 3em;
-    text-align: center;
-  }
-  .tools-link:hover,
-  .tools-link:focus {
-    border-bottom: 0;
-    background-color: #444;
-  }
   @media (max-width: 640px) {
     html {
       font-size: 75%;
@@ -174,8 +162,6 @@
   <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
 <body>
-
-    <a class="tools-link" href="http://joshnh.com/tools/">&larr; Back to tools</a>
 
   <header>
     <h1>Get Your Nested Border Radii Right!</h1>
